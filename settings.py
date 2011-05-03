@@ -98,13 +98,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+import django
+if django.VERSION[0] < 1 or django.VERSION[1] < 3:
+    MIDDLEWARE_CLASSES.append('cbv.middleware.DeferredRenderingMiddleware')
+
 ROOT_URLCONF = 'communitystuff.urls'
 
 TEMPLATE_DIRS = (
         os.path.join(PROJECT_DIR, 'templates'),
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = (
@@ -114,10 +115,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'polymorphic',
+    'shop',
+    'core',
 )
 
 # A sample logging configuration. The only tangible logging
